@@ -13,7 +13,7 @@ const Alert: React.FC<AlertProps> = ({ password }) => {
       <p className="text-lg font-semibold text-gray-700 mb-4">- CEO Biswajit Das</p>
       <div className="flex flex-col sm:flex-row justify-center space-x-0 sm:space-x-4 mt-4">
         <a
-          href="https://github.com/yourusername"
+          href="https://github.com/Biswajit0972/password-generator2"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-500 hover:underline transition duration-200"
@@ -21,7 +21,7 @@ const Alert: React.FC<AlertProps> = ({ password }) => {
           GitHub
         </a>
         <a
-          href="https://linkedin.com/in/yourusername"
+          href="www.linkedin.com/in/dasbiswajiit"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-500 hover:underline transition duration-200"

@@ -15,6 +15,7 @@ interface FromInput {
 }
 
 function App() {
+
   const [finalpassword, setPassword] = useState<string>("");
   const [range, setRange] = useState<string>("8");
   const [popup, setPopup] = useState<boolean>(false);
@@ -86,6 +87,7 @@ function App() {
                 className="w-full relative"
                 handelSubmit={handleSubmit(onSubmit)}
               >
+                {/* // ! custom Input with errors */}
                 <div className="relative">
                   <CustomInput
                     placeHolder=""
@@ -105,6 +107,7 @@ function App() {
                   />
                 </div>
 
+                {/* //TODO: update in future  */}
                 {/* <p className="font-secondary my-3">
                   <span>Types of Password:</span> strong{" "}
                 </p> */}
