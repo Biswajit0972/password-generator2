@@ -5,6 +5,7 @@ import copyImage from "./assets/copy.png";
 import { useEffect, useState } from "react";
 import usePasswordGenerator from "./hooks/passwordGenerator";
 import Alert from "./components/Alert";
+import Heading from "./components/Heading";
 
 interface FromInput {
   password?: string;
@@ -16,9 +17,13 @@ interface FromInput {
 
 function App() {
 
+  // store password
   const [finalpassword, setPassword] = useState<string>("");
+// for range of password
   const [range, setRange] = useState<string>("8");
+  // alert functions
   const [popup, setPopup] = useState<boolean>(false);
+
   const [data, setData] = useState<FromInput>({ length: 8 });
 
   const password = usePasswordGenerator(data);
@@ -33,13 +38,13 @@ function App() {
     if (password) {
       setPassword(password);
     }
-  }, [password]);
+  }, [password,data]);
 
   const onSubmit: SubmitHandler<FromInput> = (data) => {
     const updatedData = { ...data, length: Number(data?.length) };
     setData(updatedData);
   };
-
+ 
   const handelPopup = (): void => {
     setTimeout(() => {
       setPopup((e) => !e);
@@ -51,36 +56,12 @@ function App() {
     setPopup((e) => !e);
     navigator.clipboard.writeText(finalpassword);
   };
-
+ 
   return (
     <>
       <section className="max-w-screen-2xl bg-black relative">
         <div className="relative w-full h-screen flex flex-col gap-2 md:md-layout">
-          <div className="left h-[30%] w-full  relative text-center py-2  md:md-left-center">
-            <div className="overflow-hidden w-full relative px-3">
-              <h1 className="text-white-500 text-2xl font-bold font-secondary sm:sm-heading">
-                {" "}
-                Free
-                <span className="px-3 border-2 text-xl rounded-full border-secondary bg-secondary-300 mx-1 sm:bg-transparent sm:border-none sm:text-3xl ">
-                  Password
-                </span>
-                Generator{" "}
-              </h1>
-              <p className=" text-slate-400 mt-3 text-md font-semibold sm:sm-p">
-                <span className="font-extrabold text-secondary opacity-100">
-                  🚀 Free Password Generator 🚀
-                </span>
-                is an open-source project where you can generate secure
-                passwords. I assure you that your password is not stored in any
-                database. The process is entirely client-side, meaning if you
-                refresh the webpage, the password you generate will be lost. So,
-                <span className="text-red-500 capitalize ml-1 font-bold font-secondary sm:font-extrabold sm:text-xl">
-                  please be careful! 💀
-                </span>
-              </p>
-            </div>
-          </div>
-
+          <Heading/>
           <div className="right h-[70%] w-full  relative  p-5 flex items-center justify-center md:w-[50%] md:h-full md:px-12">
             <div className="overflow-hidden w-full relative bg-secondary-300  rounded-md p-5">
               <CustomFrom
@@ -97,21 +78,19 @@ function App() {
                     type="text"
                     errors={errors.password}
                     value={finalpassword}
+                    setPassword={setPassword}
                   />
-
+               
                   <img
                     src={copyImage}
-                    className="copy absolute h-5 right-2 top-1/2 -translate-y-1/2 inline cursor-pointer"
+                    className="copy absolute h-5 right-2 top-1/2 -translate-y-7 inline cursor-pointer"
                     onClick={copyFn}
                     typeof="button"
                   />
                 </div>
 
                 {/* //TODO: update in future  */}
-                {/* <p className="font-secondary my-3">
-                  <span>Types of Password:</span> strong{" "}
-                </p> */}
-
+            
                 <div className="relative w-full flex items-center gap-2 mt-2">
                   <CustomInput
                     placeHolder=""

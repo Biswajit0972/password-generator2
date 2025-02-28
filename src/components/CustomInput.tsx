@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UseFormRegister, FieldError } from "react-hook-form";
+import { checkPasswordValid } from "../hooks/passwordGenerator";
 
 interface CustomInputProps {
   placeHolder?: string;
@@ -11,7 +12,9 @@ interface CustomInputProps {
   name: string;
   errorClass?: string;
   value?: string;
+  setPassword?: (e: string) => void;
 }
+
 const CustomInput: React.FC<CustomInputProps> = ({
   placeHolder,
   className,
@@ -21,19 +24,35 @@ const CustomInput: React.FC<CustomInputProps> = ({
   type,
   name,
   errorClass,
- value
+  value,
+  setPassword,
 }) => {
-  
+
+  const [passwordStrength,  setPasswordStrength] = useState<string>("");
+
+   useEffect(() => {
+    const genStrength = checkPasswordValid(value||"")
+    setPasswordStrength(genStrength);
+   }, [value])
   return (
     <div className="relative">
       <input
+        {...register(name, { required })}
         type={type}
         placeholder={placeHolder}
         className={className}
         value={value}
-        {...register(name, { required })}
+        onChange={(e) => {
+           if (setPassword) {
+            setPassword(e.target.value);
+           }
+        }}
       />
-
+      {name === "password" && (
+        <p className="font-secondary my-3">
+          <span className="text-white-500">Strength of Password:</span> {passwordStrength}{" "}
+        </p>
+      )}
       {errors && <p className={errorClass}>{errors.message}</p>}
     </div>
   );
