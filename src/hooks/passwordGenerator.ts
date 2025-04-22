@@ -9,15 +9,15 @@ interface PasswordMetaObject {
 
 
 const alphabets = "fBkIWwqDxKQRJcMCpmVHsolXbZUGzaFgYjydnNrLOhEutTeAvSiP";
-const numbers = "0123456789";
+const numbers = "72940183657018294365";
 const specialCharacters = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 
 const usePasswordGenerator = (data: PasswordMetaObject):string => {
     const [finalPassword, setFinalPassword] = useState<string>("");
-    // console.log(data);
+
     useEffect(() => {
         const password = generatePassword(data);
-        console.log(password);
+
         if (password) {
             setFinalPassword(password);
         }
@@ -33,30 +33,29 @@ const generatePassword = (rules: PasswordMetaObject): string => {
 
     if ((!rules.alphabet && !rules.number && !rules.specialCharacter) || (rules.alphabet && rules.number && rules.specialCharacter)) {
         passwordIngredients = alphabets + numbers + specialCharacters;
-    }
-
-    if (!rules.alphabet && rules.number && rules.specialCharacter) {
+    }else if (!rules.alphabet && rules.number && rules.specialCharacter) {
         passwordIngredients = numbers + specialCharacters;
-    }
-
-    if (rules.alphabet && !rules.number && rules.specialCharacter) {
+    }else if (rules.alphabet && !rules.number && rules.specialCharacter) {
         passwordIngredients = alphabets + specialCharacters;
-    }
-
-    if (rules.alphabet && rules.number && !rules.specialCharacter) {
+    }else if (rules.alphabet && rules.number && !rules.specialCharacter) {
         passwordIngredients = alphabets + numbers;
-    }
-
-    if (rules.alphabet && !rules.number && !rules.specialCharacter) {
+    }else if (rules.alphabet && !rules.number && !rules.specialCharacter) {
         passwordIngredients = alphabets;
+    }else if (rules.alphabet ) {
+        passwordIngredients = alphabets ;
+    }else if (rules.specialCharacter) {
+        passwordIngredients = specialCharacters ;
+    } else if (rules.number) {
+        passwordIngredients = numbers ;
     }
    
 
     let finalPassword = "";
-    console.log(passwordIngredients);
+
+
     for (let i = 0; i < rules.length; i++) {
         const indexNumber = Math.floor(Math.random() * passwordIngredients.length);
-        console.table(indexNumber);
+
         finalPassword += passwordIngredients.charAt(indexNumber);
     }
 
@@ -68,7 +67,7 @@ export const checkPasswordValid = (password: string):string => {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()\-_=+[\]{}|;:'",.<>?/`~]/.test(password);
     const passwordLength = password.length;
 
     //  console.log(hasUpperCase, hasLowerCase,  hasNumber, hasSpecialChar);
